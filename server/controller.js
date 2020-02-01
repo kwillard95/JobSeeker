@@ -22,6 +22,12 @@ module.exports = {
           res.send(result);
       })
     },
+    getSomeCompanies: (req,res) => {
+      Model.Company.find({ name: req.query.name }, 'name appInfo.title', (err, result) => {
+          if (err) return console.error(err);
+          res.send(result);
+      })
+    },
     getCompanyInfo: (req,res) => {
         Model.Company.find({ name: req.query.name }, (err, result) => {
             if (err) return console.error(err);

@@ -22,6 +22,10 @@ app.get('/getAllCompanies', (req, res) => {
     Controller.getAllCompanies(req, res);
 })
 
+app.get('/getSomeCompanies', (req, res) => {
+    Controller.getSomeCompanies(req, res);
+})
+
 app.get('/getCompanyInfo', (req,res) => {
     Controller.getCompanyInfo(req, res);
 })
