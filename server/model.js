@@ -1,5 +1,22 @@
 const mongoose = require('mongoose');
 
+//Goal Schema
+
+var GoalSchema = new mongoose.Schema({
+    app: Number,
+    appStatus: { type: String, default: 'false' },
+    toy: Number,
+    toyStatus: { type: String, default: 'false' },
+    trivia: Number,
+    triviaStatus: { type: String, default: 'false' },
+    behavioral: Number,
+    behavioralStatus: { type: String, default: 'false' }
+})
+
+module.exports.Goal = mongoose.model('Goal', GoalSchema);
+
+//Company Schema
+
 var ContactSchema = new mongoose.Schema({
     name: String,
     title: String,
@@ -36,7 +53,7 @@ var StageInfoSchema = new mongoose.Schema({
     stage6Notes: String,
 })
 
-CompanySchema = new mongoose.Schema({
+var CompanySchema = new mongoose.Schema({
     name: String,
     about: String,
     url: String,
@@ -47,4 +64,4 @@ CompanySchema = new mongoose.Schema({
     stageInfo: StageInfoSchema
 })
 
-module.exports = mongoose.model('Company', CompanySchema);
+module.exports.Company = mongoose.model('Company', CompanySchema);
