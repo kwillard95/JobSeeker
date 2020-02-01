@@ -14,6 +14,9 @@ app.use('/', express.static(path.join(__dirname, '../dist')));
 app.get('/getGoals', (req,res) => {
     Controller.getGoals(req, res);
 })
+app.post('/postGoals', (req,res) => {
+    Controller.postGoals(req, res);
+})
 
 app.get('/getAllCompanies', (req, res) => {
     Controller.getAllCompanies(req, res);

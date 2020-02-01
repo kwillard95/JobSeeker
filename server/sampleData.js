@@ -1,4 +1,11 @@
-var input1 = {
+var goalInput = {
+    "app": 5,
+    "toy": 2,
+    "trivia": 1,
+    "behavioral": 3
+}
+
+var companyInput1 = {
   name:'Facebook',
   about:'Facebook is a social networking website where users can post comments, share photographs and post links to news or other interesting content on the web, chat live, and watch short-form video.',
   url:'www.facebook.com',
@@ -23,7 +30,7 @@ var input1 = {
   }
 }
 
-var input2 = {
+var companyInput2 = {
     name:'Hooli',
     about:'Hooli is a giant technology company that specializes in many Internet products, such as search, email, maps, and other products.',
     url:'www.hooli.com',
