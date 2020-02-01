@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
-
+import axios from 'axios';
 function Companies() {
+
+    function getCompany() {
+      
+    }
 
     return(
         <div>

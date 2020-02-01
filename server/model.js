@@ -4,7 +4,8 @@ var ContactSchema = new mongoose.Schema({
     name: String,
     title: String,
     email: String,
-    social: String
+    social: String,
+    mode: String,
 })
 
 var AppInfoSchema = new mongoose.Schema({
@@ -40,10 +41,10 @@ CompanySchema = new mongoose.Schema({
     about: String,
     url: String,
     contacts:[ContactSchema],
-    applied: String,
+    applied: { type: String, default: 'false' },
     appInfo: AppInfoSchema,
-    response: String,
+    response: { type: String, default: 'false' },
     stageInfo: StageInfoSchema
 })
 
-module.exports.Company = mongoose.model('Company', CompanySchema);
+module.exports = mongoose.model('Company', CompanySchema);
