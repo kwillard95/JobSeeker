@@ -9,6 +9,10 @@ class Companies extends React.Component {
             companies: [],
             search: '',
         }
+
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSearchSubmit = this.handleSearchSubmit.bind(this);
+        this.showAllCompanies = this.handleAllCompanies.bind(this);
     }
 
     componentDidMount() {
@@ -19,24 +23,49 @@ class Companies extends React.Component {
               return listOfCompanies.push({name: company.name, title: company.appInfo.title})
             })
             this.setState({companies: listOfCompanies});
-            // console.log(response.data);
         })
         .catch((err) => {
             console.log(err);
         })
     }
 
+    handleChange(e) {
+      this.state.search = e.target.value;
+    }
+
+    handleSearchSubmit(e) {
+        e.preventDefault();
+        axios.get(`/getSomeCompanies?name=${this.state.search}`)
+        .then((response) => {
+            const listOfCompanies = [];
+            response.data.map((company) => {
+              return listOfCompanies.push({name: company.name, title: company.appInfo.title})
+            })
+            this.setState({companies: listOfCompanies});
+            document.getElementById('company-search').value = '';
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+    }
+
+    showAllCompanies(e) {
+        e.preventDefault();
+        this.componentDidMount();
+    }
+
     render() {
         return(
             <div>
                 <form>
-                <input type="text"></input>
+                <input type="text" id="company-search" placeholder="Name of Company" onChange={this.handleChange}></input>
                 <select>
                     <option value="all">All</option>
                     <option value="applied">Applied</option>
                     <option value="in-progress">In-Progress</option>
                 </select>
-                <button>Search</button>
+                <button onClick={this.handleSearchSubmit}>Search</button>
+                <button onClick={this.showAllCompanies}>Show All Companies</button>
                 </form>
     
                 <div>
