@@ -12,7 +12,7 @@ class Companies extends React.Component {
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSearchSubmit = this.handleSearchSubmit.bind(this);
-        this.showAllCompanies = this.handleAllCompanies.bind(this);
+        this.showAllCompanies = this.showAllCompanies.bind(this);
     }
 
     componentDidMount() {
