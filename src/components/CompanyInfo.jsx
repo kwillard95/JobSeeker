@@ -5,43 +5,84 @@ class CompanyInfo extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            company: {}
+            company: ''
         }
     }
 
     componentDidMount() {
-      axios.get(`/getCompanyInfo?name=${this.props.company}`)
-      .then((response) => {
-          this.setState({company: response.data[0]});
-          console.log(this.state.company.contacts)
-      })
-      .catch((err) => {
-          console.log(err);
-      })
+        this.fetchData();
     }
 
-    // renderCompanyInfo() {
-    //   return (
-    //      <div>
+    componentDidUpdate(prevProps) {
+        if (this.props.company !== prevProps.company) {
+            this.fetchData();
+        }
+    }
 
-    //      </div> 
-    //   )
-    // }
+    fetchData() {
+        axios.get(`/getCompanyInfo?name=${this.props.company}`)
+            .then((response) => {
+                this.setState({ company: response.data[0] });
+                console.log(this.state.company)
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+    }
 
-    render() {
+    renderCompanyInfo() {
         return (
             <div>
-              {this.state.company.name}
-              {this.state.company.about}
-              {this.state.company.url}
-              {/* {this.state.company.contacts.map((contact) => {
-                  for (var key in contact) {
-                      return <div>{key}: {contact[key]}</div>
-                  }
-              })} */}
+                <h3>{this.state.company.name}</h3>
+
+                <p>About: {this.state.company.about}</p>
+                <p>Url: {this.state.company.url}</p>
+                <p>Contacts: {this.state.company.contacts.map((contact) => {
+                    return <div>
+                        <ul>
+                            <li>{contact.name}</li>
+                            <li>{contact.title}</li>
+                            <li>{contact.email}</li>
+                            <li>{contact.social}</li>
+                        </ul>
+                    </div>
+
+                })}</p>
+                {this.renderAppInfo()}
             </div>
-          
+
         )
+    }
+
+    renderAppInfo() {
+        if (this.state.company.applied === "true") {
+            return (
+                <p>Application Info:
+                       <div>
+                            <ul>
+                                <li type="none">Position Title: {this.state.company.appInfo.title}</li>
+                                <li type="none">Date of Application: {this.state.company.appInfo.date.slice(0,10)}</li>
+                                <li type="none">Position Duties: {this.state.company.appInfo.duties}</li>
+                                <li type="none">Point of Contact: {this.state.company.appInfo.contact}</li>
+                            </ul>
+                        </div>
+                    </p>
+            )
+        } else {
+            return null;
+        }
+    }
+
+    render() {
+        if (this.state.company !== '') {
+            return (
+                <div>
+                    {this.renderCompanyInfo()}
+                </div>
+            )
+        } else {
+            return null;
+        }
     }
 }
 
