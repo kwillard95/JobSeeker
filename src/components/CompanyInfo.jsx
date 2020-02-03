@@ -5,8 +5,12 @@ class CompanyInfo extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            company: ''
+            company: '',
+            applied: false,
+            response: false,
         }
+
+        this.onCheckboxClick = this.onCheckboxClick.bind(this);
     }
 
     componentDidMount() {
@@ -29,6 +33,55 @@ class CompanyInfo extends React.Component {
                 console.log(err);
             })
     }
+
+    onCheckboxClick(e) {
+        if (e.target.name === 'applied') {
+            this.setState({ applied: !this.state.applied });
+        } else {
+            this.setState({ response: !this.state.response });
+        }
+    }
+
+    haveApplied() {
+        if (this.state.applied) {
+            return (
+                <form>
+                    <div>
+                        <input type="text" placeholder="Date" name="date"></input>
+                    </div>
+                    <div>
+                        <input type="text" placeholder="Position Applied For" name="date"></input>
+                    </div>
+                    <div>
+                        <textarea rows="4" cols="50" name="duties" placeholder="Position Description"></textarea>
+                    </div>
+                </form>
+            )
+        } else {
+            return null;
+        }
+    }
+
+    haveResponded() {
+        if (this.state.response) {
+            return (
+                <form>
+                    <div>
+                        <input type="text" placeholder="Stage 1" name="stage1"></input>
+                    </div>
+                    <div>
+                        <input type="date" name="stage1Date"></input>
+                    </div>
+                    <div>
+                        <textarea rows="4" cols="50" name="stage1Notes" placeholder="Stage 1 Notes"></textarea>
+                    </div>
+                </form>
+            )
+        } else {
+            return null;
+        }
+    }
+
 
     renderCompanyInfo() {
         return (
@@ -57,19 +110,39 @@ class CompanyInfo extends React.Component {
     renderAppInfo() {
         if (this.state.company.applied === "true") {
             return (
-                <p>Application Info:
+                <div>
+                    <div>
+                        <input type="checkbox" name="applied" checked="checked"></input> Applied
+                </div>
+                    <p>Application Info:
                        <div>
                             <ul>
                                 <li type="none">Position Title: {this.state.company.appInfo.title}</li>
-                                <li type="none">Date of Application: {this.state.company.appInfo.date.slice(0,10)}</li>
+                                <li type="none">Date of Application: {this.state.company.appInfo.date.slice(0, 10)}</li>
                                 <li type="none">Position Duties: {this.state.company.appInfo.duties}</li>
                                 <li type="none">Point of Contact: {this.state.company.appInfo.contact}</li>
                             </ul>
                         </div>
                     </p>
+                    <div>
+                        <input type="checkbox" name="response" onChange={this.onCheckboxClick}></input> Response
+                </div>
+                    <div>
+                        {this.haveResponded()}
+                    </div>
+                </div>
             )
         } else {
-            return null;
+            return (
+                <div>
+                    <div>
+                        <input type="checkbox" name="applied" onChange={onCheckboxClick}></input> Applied
+                </div>
+                    <div>
+                        {this.haveApplied()}
+                    </div>
+                </div>
+            )
         }
     }
 
