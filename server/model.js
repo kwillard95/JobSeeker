@@ -22,7 +22,6 @@ var ContactSchema = new mongoose.Schema({
     title: String,
     email: String,
     social: String,
-    mode: String,
 })
 
 var AppInfoSchema = new mongoose.Schema({
