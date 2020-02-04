@@ -3,9 +3,6 @@ import ContactsForm from './ContactsForm.jsx';
 import axios from 'axios';
 
 export default function CompanyForm() {
-    const [name, setName] = useState('');
-    const [about, setAbout] = useState('');
-    const [url, setUrl] = useState('');
     const [userInput, setUserInput] = useReducer(
         (state, newState) => ({...state, ...newState}),
         {
@@ -26,7 +23,6 @@ export default function CompanyForm() {
       const newValue = e.target.value;
 
       setUserInput({[name]: newValue});
-      console.log(userInput)
     }
     function handleContactChange(e) {
         const name = e.target.name;
@@ -35,7 +31,6 @@ export default function CompanyForm() {
         oldContacts[name] = newValue;
 
         setUserInput({contacts: [oldContacts]});
-        console.log(userInput);
     }
 
     function handleSubmit(e) {

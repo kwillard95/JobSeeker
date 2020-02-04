@@ -34,4 +34,8 @@ app.post('/postCompanyInfo', (req,res) => {
     Controller.postCompanyInfo(req,res);
 })
 
+app.post('/postAppInfo', (req, res) => {
+    Controller.postAppInfo(req, res);
+})
+
 app.listen(port, () => console.log(`JobSeeker listening on port ${port}!`))
