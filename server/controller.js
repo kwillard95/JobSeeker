@@ -40,5 +40,12 @@ module.exports = {
          if (err) return console.error(err);
          res.send('Successfully posted!')
        })
+    },
+    postAppInfo: (req, res) => {
+      Model.Company.updateOne({name: req.body.name}, {applied: "true", appInfo: req.body.appInfo}, (err, result) => {
+        if (err) return console.error(err);
+        res.send('Successfully updated app info!')
+      })
+
     }
 }

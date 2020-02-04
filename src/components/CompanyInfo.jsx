@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import AppInfoForm from './AppInfoForm.jsx'
 
 class CompanyInfo extends React.Component {
     constructor(props) {
@@ -26,9 +27,7 @@ class CompanyInfo extends React.Component {
     fetchData() {
         axios.get(`/getCompanyInfo?name=${this.props.company}`)
             .then((response) => {
-                console.log('response', response.data[0])
                 this.setState({ company: response.data[0] });
-                console.log('state', this.state.company);
             })
             .catch((err) => {
                 console.log(err);
@@ -46,17 +45,9 @@ class CompanyInfo extends React.Component {
     haveApplied() {
         if (this.state.applied) {
             return (
-                <form>
-                    <div>
-                        <input type="text" placeholder="Date" name="date"></input>
-                    </div>
-                    <div>
-                        <input type="text" placeholder="Position Applied For" name="date"></input>
-                    </div>
-                    <div>
-                        <textarea rows="4" cols="50" name="duties" placeholder="Position Description"></textarea>
-                    </div>
-                </form>
+                <div>
+                    <AppInfoForm name={this.state.company.name} />
+                </div>
             )
         } else {
             return null;
