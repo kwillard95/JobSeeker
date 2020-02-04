@@ -26,8 +26,9 @@ class CompanyInfo extends React.Component {
     fetchData() {
         axios.get(`/getCompanyInfo?name=${this.props.company}`)
             .then((response) => {
+                console.log('response', response.data[0])
                 this.setState({ company: response.data[0] });
-                console.log(this.state.company)
+                console.log('state', this.state.company);
             })
             .catch((err) => {
                 console.log(err);
@@ -136,7 +137,7 @@ class CompanyInfo extends React.Component {
             return (
                 <div>
                     <div>
-                        <input type="checkbox" name="applied" onChange={onCheckboxClick}></input> Applied
+                        <input type="checkbox" name="applied" onChange={this.onCheckboxClick}></input> Applied
                 </div>
                     <div>
                         {this.haveApplied()}
