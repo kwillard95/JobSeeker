@@ -23,8 +23,15 @@ class Companies extends React.Component {
         .then((response) => {
             const listOfCompanies = [];
             response.data.map((company) => {
-              return listOfCompanies.push({name: company.name, title: company.appInfo.title})
+              const obj = {name: company.name}
+              if (company.appInfo) {
+                  obj.title = company.appInfo.title;
+              } else {
+                  obj.title = ''
+              }
+              return listOfCompanies.push(obj);
             })
+            console.log('list of comps', listOfCompanies)
             this.setState({companies: listOfCompanies});
         })
         .catch((err) => {
@@ -42,7 +49,13 @@ class Companies extends React.Component {
         .then((response) => {
             const listOfCompanies = [];
             response.data.map((company) => {
-              return listOfCompanies.push({name: company.name, title: company.appInfo.title})
+                let obj = {name: company.name}
+                if (!company.appInfo) {
+                    obj.title = ''
+                } else {
+                    obj.title = company.appInfo.title;
+                }
+                return listOfCompanies.push(obj);
             })
             this.setState({companies: listOfCompanies});
             document.getElementById('company-search').value = '';
