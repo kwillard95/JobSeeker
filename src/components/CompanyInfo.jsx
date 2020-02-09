@@ -7,8 +7,8 @@ class CompanyInfo extends React.Component {
         super(props);
         this.state = {
             company: '',
-            applied: false,
-            response: false
+            // applied: false,
+            // response: false
         }
     }
 
@@ -28,29 +28,24 @@ class CompanyInfo extends React.Component {
                 this.setState({ 
                     company: response.data[0]
                  });
+                 console.log(this.state.company.applied)
 
-                 if (response.data[0].applied === 'true') {
-                    this.setState({ 
-                        applied: true
-                     });
-                 }
-                 if (response.data[0].response === 'true') {
-                    this.setState({ 
-                        response: true
-                     });
-                 }
+                //  if (response.data[0].applied === 'true') {
+                //     this.setState({ 
+                //         applied: true
+                //      });
+                //  }
+                //  if (response.data[0].response === 'true') {
+                //     this.setState({ 
+                //         response: true
+                //      });
+                //  }
+                //  console.log('state', this.state.applied)
             })
             .catch((err) => {
                 console.log(err);
             })
     }
-
-    
-
-
-
-
-
 
     renderCompanyInfo() {
         return (
@@ -70,7 +65,7 @@ class CompanyInfo extends React.Component {
                     </div>
 
                 })}</p>
-                <AppInfoForm company={this.state.company} applied={this.state.applied} response={this.state.response} />
+                <AppInfoForm company={this.state.company} />
             </div>
 
         )
