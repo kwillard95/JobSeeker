@@ -32,24 +32,9 @@ var AppInfoSchema = new mongoose.Schema({
 })
 
 var StageInfoSchema = new mongoose.Schema({
-    stage1: String,
-    stage1Date: Date,
-    stage1Notes: String,
-    stage2: String,
-    stage2Date: Date,
-    stage2Notes: String,
-    stage3: String,
-    stage3Date: Date,
-    stage3Notes: String,
-    stage4: String,
-    stage4Date: Date,
-    stage4Notes: String,
-    stage5: String,
-    stage5Date: Date,
-    stage5Notes: String,
-    stage6: String,
-    stage6Date: Date,
-    stage6Notes: String,
+    stage: String,
+    date: Date,
+    notes: String
 })
 
 var CompanySchema = new mongoose.Schema({
@@ -60,7 +45,7 @@ var CompanySchema = new mongoose.Schema({
     applied: { type: String, default: 'false' },
     appInfo: AppInfoSchema,
     response: { type: String, default: 'false' },
-    stageInfo: StageInfoSchema
+    stageInfo: [StageInfoSchema]
 })
 
 module.exports.Company = mongoose.model('Company', CompanySchema);

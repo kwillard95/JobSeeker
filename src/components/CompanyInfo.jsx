@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import AppInfoForm from './AppInfoForm.jsx'
+import ApplicationInfo from './ApplicationInfo.jsx'
 
 class CompanyInfo extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            company: '',
-            // applied: false,
-            // response: false
+            company: ''
         }
     }
 
@@ -28,19 +26,6 @@ class CompanyInfo extends React.Component {
                 this.setState({ 
                     company: response.data[0]
                  });
-                 console.log(this.state.company.applied)
-
-                //  if (response.data[0].applied === 'true') {
-                //     this.setState({ 
-                //         applied: true
-                //      });
-                //  }
-                //  if (response.data[0].response === 'true') {
-                //     this.setState({ 
-                //         response: true
-                //      });
-                //  }
-                //  console.log('state', this.state.applied)
             })
             .catch((err) => {
                 console.log(err);
@@ -65,7 +50,7 @@ class CompanyInfo extends React.Component {
                     </div>
 
                 })}</p>
-                <AppInfoForm company={this.state.company} fetch={this.fetchData.bind(this)} />
+                <ApplicationInfo company={this.state.company} fetch={this.fetchData.bind(this)} />
             </div>
 
         )
