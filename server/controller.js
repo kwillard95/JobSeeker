@@ -46,6 +46,11 @@ module.exports = {
         if (err) return console.error(err);
         res.send('Successfully updated app info!')
       })
-
+    },
+    postResponseInfo: (req, res) => {
+      Model.Company.updateOne({name: req.body.name}, {response: "true", stageInfo: req.body.stageInfo}, (err, result) => {
+        if (err) return console.error(err);
+        res.send('Successfully update response info!')
+      })
     }
 }
