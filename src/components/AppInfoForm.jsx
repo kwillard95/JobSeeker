@@ -10,9 +10,10 @@ export default function AppInfoForm(props) {
             duties: '',
         }
     )
-    
-    // const [applied, setApplied] = useState(props.applied);
-    // const [response, setResponse] = useState(props.response);
+    console.log('props', props.company.applied)
+
+    const [applied, setApplied] = useState(false);
+    const [response, setResponse] = useState(false);
     // console.log('props', props.applied);
     // console.log('state', applied)
 
@@ -25,7 +26,7 @@ export default function AppInfoForm(props) {
 
     const saveAppInfo = e => {
         e.preventDefault();
-        axios.post('/postAppInfo', { name: props.name, appInfo: userInput })
+        axios.post('/postAppInfo', { name: props.company.name, appInfo: userInput })
             .then(() => {
                 console.log('Successfully updated app info!')
                 setApplied(!applied);
@@ -38,12 +39,11 @@ export default function AppInfoForm(props) {
 
     const onCheckboxClick = (e) => {
         if (e.target.name === 'applied') {
-            // setApplied({ applied: !applied });
-            props.applied = !props.applied;
-        } 
+            setApplied({ applied: !applied });
+
+        }
         else {
-            // setResponse({ response: !response });
-            props.response = !props.response;
+            setResponse({ response: !response });
         }
     }
 
@@ -60,7 +60,7 @@ export default function AppInfoForm(props) {
     // }
 
     const haveResponded = () => {
-        if (props.response) {
+        if (props.company.response) {
             return (
                 <form>
                     <div>
@@ -80,12 +80,11 @@ export default function AppInfoForm(props) {
     }
 
     const renderAppInfo = () => {
-        if (props.applied) {
-            console.log('here applied')
+        if (props.company.applied === "true") {
             return (
                 <div>
                     <div>
-                        <input type="checkbox" name="applied" checked="checked"></input> Applied
+                        <input type="checkbox" id="applied" name="applied" checked="checked"></input> Applied
                 </div>
                     <p>Application Info:
                        <div>
@@ -106,33 +105,36 @@ export default function AppInfoForm(props) {
                 </div>
             )
         } else {
-            console.log('here not applied')
-            return (
-                <div>
+            if (applied) {
+                return (
                     <div>
-                        <input type="checkbox" name="applied" onChange={onCheckboxClick}></input> Applied
-                </div>
-                    <div>
-                        <form>
-                            <div>
-                                <input type="date" placeholder="Date" name="date" onChange={handleChange}></input>
-                            </div>
-                            <div>
-                                <input type="text" placeholder="Position Applied For" name="title" onChange={handleChange}></input>
-                            </div>
-                            <div>
-                                <textarea rows="4" cols="50" name="duties" placeholder="Position Description" onChange={handleChange}></textarea>
-                            </div>
-                            <button onClick={saveAppInfo}>Save Application Info</button>
-                        </form>
-                    </div>
-                </div>
-            )
+                        <div>
+                            <input type="checkbox" name="applied" onChange={onCheckboxClick}></input> Applied
+                        </div>
+                        <div>
+                            <form>
+                                <div>
+                                    <input type="date" placeholder="Date" name="date" onChange={handleChange}></input>
+                                </div>
+                                <div>
+                                    <input type="text" placeholder="Position Applied For" name="title" onChange={handleChange}></input>
+                                </div>
+                                <div>
+                                    <textarea rows="4" cols="50" name="duties" placeholder="Position Description" onChange={handleChange}></textarea>
+                                </div>
+                                <button onClick={saveAppInfo}>Save Application Info</button>
+                            </form>
+                        </div>
+                    </div>)
+
+            } else {
+                return <div><input type="checkbox" name="applied" onChange={onCheckboxClick}></input> Applied</div>;
+            }
         }
     }
 
 
-  return renderAppInfo();
+    return renderAppInfo();
     // if (props.company.applied) {
     //     return <div><CompanyInfo /></div>
     // } else {
