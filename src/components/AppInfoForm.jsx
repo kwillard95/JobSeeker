@@ -14,8 +14,6 @@ export default function AppInfoForm(props) {
 
     const [applied, setApplied] = useState(false);
     const [response, setResponse] = useState(false);
-    // console.log('props', props.applied);
-    // console.log('state', applied)
 
     const handleChange = e => {
         const name = e.target.name;
@@ -29,8 +27,7 @@ export default function AppInfoForm(props) {
         axios.post('/postAppInfo', { name: props.company.name, appInfo: userInput })
             .then(() => {
                 console.log('Successfully updated app info!')
-                setApplied(!applied);
-
+                props.fetch();
             })
             .catch((err) => {
                 console.log(err);
@@ -39,25 +36,17 @@ export default function AppInfoForm(props) {
 
     const onCheckboxClick = (e) => {
         if (e.target.name === 'applied') {
-            setApplied({ applied: !applied });
-
+            setApplied(!applied);
+            if (applied) {
+                e.target.checked = "checked";
+            } else {
+                e.target.checked = "";
+            }
         }
         else {
-            setResponse({ response: !response });
+            setResponse(!response);
         }
     }
-
-    // const haveApplied = () => {
-    //     if (this.state.applied) {
-    //         return (
-    //             <div>
-    //                 <AppInfoForm name={this.state.company.name} applied={this.state.company.applied} />
-    //             </div>
-    //         )
-    //     } else {
-    //         return null;
-    //     }
-    // }
 
     const haveResponded = () => {
         if (props.company.response) {
@@ -97,7 +86,7 @@ export default function AppInfoForm(props) {
                         </div>
                     </p>
                     <div>
-                        <input type="checkbox" name="response" onChange={onCheckboxClick}></input> Response
+                        <input type="checkbox" name="response" checked="" onChange={onCheckboxClick}></input> Response
                 </div>
                     <div>
                         {haveResponded()}
@@ -109,7 +98,7 @@ export default function AppInfoForm(props) {
                 return (
                     <div>
                         <div>
-                            <input type="checkbox" name="applied" onChange={onCheckboxClick}></input> Applied
+                            <input type="checkbox" name="applied" defaultChecked={applied} onChange={onCheckboxClick}></input> Applied
                         </div>
                         <div>
                             <form>
@@ -128,7 +117,7 @@ export default function AppInfoForm(props) {
                     </div>)
 
             } else {
-                return <div><input type="checkbox" name="applied" onChange={onCheckboxClick}></input> Applied</div>;
+                return <div><input type="checkbox" name="applied" defaultChecked={applied} onChange={onCheckboxClick}></input> Applied</div>;
             }
         }
     }

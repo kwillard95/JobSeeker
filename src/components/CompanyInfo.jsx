@@ -65,7 +65,7 @@ class CompanyInfo extends React.Component {
                     </div>
 
                 })}</p>
-                <AppInfoForm company={this.state.company} />
+                <AppInfoForm company={this.state.company} fetch={this.fetchData.bind(this)} />
             </div>
 
         )
