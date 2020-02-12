@@ -38,29 +38,51 @@ export default function ResponseInfo(props) {
     }
 
     const haveResponded = () => {
-        if (response) {
+        if (props.company.response === "true") {
             return (
-                <form>
+                <div>
                     <div>
-                    <input type="checkbox" name="response" checked='checked' onChange={onCheckboxClick}></input> Response
-                    </div>
-                    <div>
-                        <input type="text" placeholder="Stage 1" name="stage" onChange={handleChange}></input>
-                    </div>
-                    <div>
-                        <input type="date" name="date" onChange={handleChange}></input>
-                    </div>
-                    <div>
-                        <textarea rows="4" cols="50" name="notes" placeholder="Stage 1 Notes" onChange={handleChange}></textarea>
-                    </div>
-                    <button onClick={saveResponseInfo}>Submit</button>
-                </form>
+                        <input type="checkbox" id="applied" name="applied" checked="checked"></input> Response
+                </div>
+                    <p>Stage Info:
+                       <div>
+                            {props.company.stageInfo.map((stage) => {
+                                return (<ul>
+                                    <li type="none">Stage: {stage.stage}</li>
+                                    <li type="none">Scheduled Date: {stage.date.slice(0, 10)}</li>
+                                    <li type="none">Stage Notes: {stage.notes}</li>
+                                </ul>)
+                            })}
+                        </div>
+                    </p>
+                    <button>Add Another Stage</button>
+                </div>
             )
         } else {
-            return (
-            <div>
-            <input type="checkbox" name="response" checked="" onChange={onCheckboxClick}></input> Response
-            </div>)
+            if (response) {
+                return (
+                    <form>
+                        <div>
+                            <input type="checkbox" name="response" checked='checked' onChange={onCheckboxClick}></input> Response
+                        </div>
+                        <div>
+                            <input type="text" placeholder="Stage 1" name="stage" onChange={handleChange}></input>
+                        </div>
+                        <div>
+                            <input type="date" name="date" onChange={handleChange}></input>
+                        </div>
+                        <div>
+                            <textarea rows="4" cols="50" name="notes" placeholder="Stage 1 Notes" onChange={handleChange}></textarea>
+                        </div>
+                        <button onClick={saveResponseInfo}>Submit</button>
+                    </form>
+                )
+            } else {
+                return (
+                    <div>
+                        <input type="checkbox" name="response" checked="" onChange={onCheckboxClick}></input> Response
+                </div>)
+            }
         }
     }
 
